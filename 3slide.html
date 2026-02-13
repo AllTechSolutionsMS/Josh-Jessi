@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Share Our Wedding Photos</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #b08d57;
+      --overlay: rgba(0,0,0,0.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* 🎞️ Scrolling Background */
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .row {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .track {
+      display: flex;
+      width: max-content;
+      height: 100%;
+      animation: scroll-left 140s linear infinite;
+    }
+
+    .row.reverse .track {
+      animation: scroll-right 140s linear infinite;
+    }
+
+    .track img {
+      height: 100%;
+      width: auto;
+      object-fit: cover;
+    }
+
+    @keyframes scroll-left {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @keyframes scroll-right {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--overlay);
+      z-index: -1;
+    }
+
+    /* 💍 Content Card */
+    .card {
+      background: rgba(255,255,255,0.95);
+      color: #2b2b2b;
+      max-width: 420px;
+      margin: auto;
+      margin-top: 12vh;
+      padding: 2.5rem 2rem;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .button {
+      display: block;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      box-shadow: 0 10px 20px rgba(176, 141, 87, 0.4);
+    }
+
+    .note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    footer {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎞️ 4 Background Rows -->
+  <div class="background">
+    <div class="row"><div class="track" id="row1"></div></div>
+    <div class="row reverse"><div class="track" id="row2"></div></div>
+    <div class="row"><div class="track" id="row3"></div></div>
+    <!--<div class="row reverse"><div class="track" id="row4"></div></div> -->
+  </div>
+
+  <div class="overlay"></div>
+
+  <!-- 💍 Foreground Content -->
+  <div class="card">
+    <h1>Share Our Wedding Photos</h1>
+    <p class="subtitle">Help us capture every moment from our special day</p>
+
+    <!-- 🔗 Paste your SharePoint upload link -->
+    <a class="button" href="https://alltechsolutionsms-my.sharepoint.com/:f:/g/personal/joshua_alltech-ms_com/IgAaQ7aZpO9PQbL3CIGK6HzgAV6LHpatNCkig8sTu2iCn8A?e=sDRYpx">
+      Upload Photos & Videos
+    </a>
+
+    <p class="note">No account needed • Takes seconds</p>
+    <footer>Thank you for celebrating with us 💍❤️</footer>
+  </div>
+
+  <!-- 🔀 Random Image Logic -->
+  <script>
+    const IMAGES = [
+      "photo1.jpg",
+      "photo2.jpg",
+      "photo3.jpg",
+      "photo4.jpg",
+      "photo5.jpg",
+      "photo6.jpg"
+    ];
+
+    function shuffle(arr) {
+      return arr
+        .map(v => ({ v, r: Math.random() }))
+        .sort((a, b) => a.r - b.r)
+        .map(({ v }) => v);
+    }
+
+    function fillRow(id) {
+      const row = document.getElementById(id);
+      const shuffled = shuffle(IMAGES);
+
+      [...shuffled, ...shuffled].forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        row.appendChild(img);
+      });
+    }
+
+    ["row1","row2","row3"].forEach(fillRow);
+  </script>
+
+</body>
+</html>
