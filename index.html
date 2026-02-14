@@ -156,14 +156,7 @@
 
   <!-- 🔀 Random Image Logic -->
   <script>
-    const IMAGES = [
-      "photo1.jpg",
-      "photo2.jpg",
-      "photo3.jpg",
-      "photo4.jpg",
-      "photo5.jpg",
-      "photo6.jpg"
-    ];
+    const IMAGES = Array.from({ length: 33 }, (_, i) => `photo${i + 1}.jpg`);
 
     function shuffle(arr) {
       return arr
