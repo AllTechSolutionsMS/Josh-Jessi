@@ -171,8 +171,11 @@
 
       [...shuffled, ...shuffled].forEach(src => {
         const img = document.createElement("img");
-        img.src = src;
-        row.appendChild(img);
+    img.src = src;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.fetchPriority = "low";
+    row.appendChild(img);
       });
     }
 
