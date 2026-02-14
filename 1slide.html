@@ -57,11 +57,11 @@
 
     @keyframes scroll-left {
       from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      to   { transform: translateX(-15%); }
     }
 
     @keyframes scroll-right {
-      from { transform: translateX(-50%); }
+      from { transform: translateX(-15%); }
       to   { transform: translateX(0); }
     }
 
@@ -146,7 +146,7 @@
     <p class="subtitle">Help us capture every moment from our special day</p>
 
     <!-- 🔗 Paste your SharePoint upload link -->
-    <a class="button" href="https://alltechsolutionsms-my.sharepoint.com/:f:/g/personal/joshua_alltech-ms_com/IgAaQ7aZpO9PQbL3CIGK6HzgAV6LHpatNCkig8sTu2iCn8A?e=sDRYpx">
+    <a class="button" href="https://alltechsolutionsms-my.sharepoint.com/:f:/g/personal/joshua_alltech-ms_com/IgAaQ7aZpO9PQbL3CIGK6HzgAVWuO_SRlfXHkg2_1pNoKEM">
       Upload Photos & Videos
     </a>
 
@@ -156,14 +156,7 @@
 
   <!-- 🔀 Random Image Logic -->
   <script>
-    const IMAGES = [
-      "photo1.jpg",
-      "photo2.jpg",
-      "photo3.jpg",
-      "photo4.jpg",
-      "photo5.jpg",
-      "photo6.jpg"
-    ];
+    const IMAGES = Array.from({ length: 33 }, (_, i) => `photo${i + 1}.jpg`);
 
     function shuffle(arr) {
       return arr
@@ -178,8 +171,11 @@
 
       [...shuffled, ...shuffled].forEach(src => {
         const img = document.createElement("img");
-        img.src = src;
-        row.appendChild(img);
+    img.src = src;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.fetchPriority = "low";
+    row.appendChild(img);
       });
     }
 
